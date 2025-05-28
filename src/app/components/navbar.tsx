@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import Link from 'next/link'
 import {
   Sheet,
   SheetContent,
@@ -25,25 +26,25 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-lg">L</span>
               </div>
               <span className="font-bold text-xl text-foreground">YourLogo</span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block ml-auto">
             <div className="flex items-center space-x-8">
               {navigationItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   className="text-foreground/80 hover:text-foreground transition-colors duration-200 font-medium px-3 py-2 rounded-md hover:bg-accent"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -71,14 +72,14 @@ const Navbar = () => {
 
                   {/* Mobile Navigation Links */}
                   {navigationItems.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
                       href={item.href}
                       className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2 px-4 rounded-md hover:bg-accent"
                       onClick={() => setIsOpen(false)}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
 
                   {/* Mobile Enquiry Button - Removed */}
