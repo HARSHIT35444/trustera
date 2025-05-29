@@ -11,11 +11,11 @@ import { Button } from '@/components/ui/button'
 import { Menu, ChevronDown, Phone } from 'lucide-react'
 
 // Define the type for dropdown keys
-type DropdownKey = 'startup' | 'compliances' | 'services'
+// type DropdownKey = 'startup' | 'compliances' | 'services'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<DropdownKey | null>(null)
+  const [activeDropdown, setActiveDropdown] = useState<keyof typeof mobileDropdowns | null>(null)
   const [mobileDropdowns, setMobileDropdowns] = useState({
     startup: false,
     compliances: false,
@@ -55,14 +55,14 @@ const Navbar = () => {
     { name: 'Labour License', href: '/services/labour-license' },
   ]
 
-  const toggleMobileDropdown = (dropdown: DropdownKey) => {
+  const toggleMobileDropdown = (dropdown: keyof typeof mobileDropdowns) => {
     setMobileDropdowns(prev => ({
       ...prev,
       [dropdown]: !prev[dropdown]
     }))
   }
 
-  const handleDropdownToggle = (dropdown: DropdownKey) => {
+  const handleDropdownToggle = (dropdown: keyof typeof mobileDropdowns) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown)
   }
 
@@ -83,7 +83,7 @@ const Navbar = () => {
   const DropdownMenu = ({ trigger, children, dropdownKey }: {
     trigger: string
     children: React.ReactNode
-    dropdownKey: DropdownKey
+    dropdownKey: keyof typeof mobileDropdowns
   }) => (
     <div className="relative" ref={dropdownRef}>
       <button
