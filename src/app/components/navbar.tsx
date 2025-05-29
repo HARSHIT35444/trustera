@@ -10,16 +10,19 @@ import {
 import { Button } from '@/components/ui/button'
 import { Menu, ChevronDown, Phone } from 'lucide-react'
 
+// Define the type for dropdown keys
+type DropdownKey = 'startup' | 'compliances' | 'services'
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState(null)
+  const [activeDropdown, setActiveDropdown] = useState<DropdownKey | null>(null)
   const [mobileDropdowns, setMobileDropdowns] = useState({
     startup: false,
     compliances: false,
     services: false
   })
 
-  const dropdownRef = useRef(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const startupOptions = [
     { name: 'Proprietorship', href: '/startup/prop' },
@@ -52,21 +55,21 @@ const Navbar = () => {
     { name: 'Labour License', href: '/services/labour-license' },
   ]
 
-  const toggleMobileDropdown = (dropdown) => {
+  const toggleMobileDropdown = (dropdown: DropdownKey) => {
     setMobileDropdowns(prev => ({
       ...prev,
       [dropdown]: !prev[dropdown]
     }))
   }
 
-  const handleDropdownToggle = (dropdown) => {
+  const handleDropdownToggle = (dropdown: DropdownKey) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown)
   }
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setActiveDropdown(null)
       }
     }
@@ -77,7 +80,11 @@ const Navbar = () => {
     }
   }, [])
 
-  const DropdownMenu = ({ trigger, children, dropdownKey }) => (
+  const DropdownMenu = ({ trigger, children, dropdownKey }: {
+    trigger: string
+    children: React.ReactNode
+    dropdownKey: DropdownKey
+  }) => (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => handleDropdownToggle(dropdownKey)}
@@ -98,7 +105,10 @@ const Navbar = () => {
     </div>
   )
 
-  const DropdownItem = ({ href, children }) => (
+  const DropdownItem = ({ href, children }: {
+    href: string
+    children: React.ReactNode
+  }) => (
     <Link
       href={href}
       className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
